@@ -1,0 +1,48 @@
+{% extends 'myapp/base.html' %}
+
+
+{% block title %}
+Главная страница
+{% endblock %}
+
+{% block content %}
+    <h2>Заказы</h2>
+            <div class="orders-table">
+                <a href="/neworder" class="btn btn-primary">Сформировать</a>
+                {% if orders %}
+                <table style="border: none" class="table">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Наименование заказчика</th>
+                        <th scope="col">Адрес заказчика</th>
+                        <th scope="col">Телефон</th>
+                        <th scope="col">Номер договора</th>
+                        <th scope="col">Дата заключения договора</th>
+                        <th scope="col">Наименование товара</th>
+                        <th scope="col">Плановая поставка</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    {% for elem in orders %}
+                    <tr>
+                       <td scope="row">{{ elem.id }}</td>
+                        <td>{{ elem.customer }}<br>
+                        <td>{{ elem.customer.adress }}<br>
+                        <td>{{ elem.customer.phone }}<br>
+                        <td>{{ elem.contract_number }}</td>
+                        <td>{{ elem.date_contract }}</td>
+                        <td>{{ elem.name }}<br>
+                        <td colspan="2">{{ elem.shipment }}</td>
+                        <td><button class="btn btn-warning btn-sm" onclick="location.href = '{% url 'order_edit' elem.id %}'">Edit</button></td>
+                        <td><button class="btn btn-danger btn-sm" onclick="location.href = '{% url 'order_delete' elem.id %}'">Delete</button></td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+                {% else %}
+                <p>У нас нет записей</p>
+                {% endif %}
+            </div>
+{% endblock %}

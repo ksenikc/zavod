@@ -1,0 +1,51 @@
+{% extends 'myapp/base.html' %}
+
+
+{% block title %}
+Заказчики
+{% endblock %}
+
+{% block content %}
+<div class="orders-table">
+    <h2>Заказчики</h2>
+    <a href="/newcustomer" class="btn btn-primary m-20">Добавить</a>
+    {% if customers %}
+    <table style="border: none" class="table">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Наименование заказчика</th>
+            <th scope="col">Адрес заказчика</th>
+            <th scope="col">Номер телефона</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+
+        </tr>
+        {% for elem in customers %}
+        <tr>
+            <td scope="row">{{ elem.id }}</td>
+            <td>{{ elem.name }}<br>
+            <td>{{ elem.adress }}</td>
+            <td colspan="2">{{ elem.phone }}</td>
+            <td>
+                <button class="btn btn-warning btn-sm" onclick="location.href = '{% url 'customer_edit' elem.id %}'">Edit
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-danger btn-sm" onclick="location.href = '{% url 'customer_delete' elem.id %}'">
+                    Delete
+                </button>
+            </td>
+            <td></td>
+
+        </tr>
+        {% endfor %}
+
+    </table>
+    {% else %}
+    <p>У нас нет записей</p>
+    {% endif %}
+</div>
+{% endblock %}

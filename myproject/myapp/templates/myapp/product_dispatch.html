@@ -1,0 +1,40 @@
+{% extends 'myapp/base.html' %}
+
+
+{% block title %}
+Отгрузка
+{% endblock %}
+
+{% block content %}
+<div class="orders-table">
+    <h2>Отчет</h2>
+    {% if dispatch %}
+    <table style="border: none" class="table">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Наименование заказчика</th>
+            <th scope="col">Цена товара <br> тыс. руб.</th>
+            <th scope="col">Плановая поставка <br> шт.</th>
+            <th scope="col">Фактически отгружено <br> шт.</th>
+            <th scope="col">Отклонение <br> шт.</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for cc in dispatch %}
+        <tr>
+            <td scope="row">{{ cc.id }}</td>
+            <td>{{ cc.id_orders.customer.name }}<br>
+            <td>{{ cc.id_orders.name.price }}</td>
+            <td>{{ cc.id_orders.shipment }}</td>
+            <td>{{ cc.dispatch_count }}</td>
+            <td>{{ cc.id_orders.shipment|add:cc.dispatch_count }}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    {% else %}
+    <p>У нас нет записей</p>
+    {% endif %}
+</div>
+{% endblock %}

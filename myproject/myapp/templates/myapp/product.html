@@ -1,0 +1,38 @@
+{% extends 'myapp/base.html' %}
+
+
+{% block title %}
+Товары
+{% endblock %}
+
+{% block content %}
+            <div class="orders-table">
+                <h2>Товары</h2>
+                 <a href="/newproduct" class="btn btn-primary">Добавить</a>
+                {% if products %}
+                <table style="border: none" class="table">
+                    <tr>
+                        <th scope="col">id</th>
+                        <th scope="col">Наименование товара</th>
+                        <th scope="col">Цена</th>
+                        <th></th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                    {% for pp in products %}
+                    <tr>
+                       <td scope="row">{{ pp.id }}</td>
+                        <td>{{ pp.name }}<br>
+                        <td colspan="2">{{ pp.price }}</td>
+                        <td><button class="btn btn-warning btn-sm" onclick="location.href = '{% url 'product_edit' pp.id %}'">Edit</button></td>
+                        <td><button class="btn btn-danger btn-sm" onclick="location.href = '{% url 'product_delete' pp.id %}'">Delete</button></td>
+                        <td></td>
+                    </tr>
+                    {% endfor %}
+
+                </table>
+                {% else %}
+                <p>У нас нет записей</p>
+                {% endif %}
+            </div>
+{% endblock %}

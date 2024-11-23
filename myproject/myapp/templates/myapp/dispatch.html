@@ -1,0 +1,47 @@
+{% extends 'myapp/base.html' %}
+
+
+{% block title %}
+Отгрузка
+{% endblock %}
+
+{% block content %}
+<div class="orders-table">
+    <h2>Отгрузка</h2>
+    <a href="/newdispatch" class="btn btn-primary">Сформировать</a>
+    {% if dispatchs %}
+    <table style="border: none" class="table">
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">Номер заказа</th>
+            <th scope="col">Дата отгрузки</th>
+            <th scope="col">Количество шт.</th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        {% for dd in dispatchs %}
+        <tr>
+            <td scope="row">{{ dd.id }}</td>
+            <td>{{ dd.id_orders.id }}<br>
+            <td >{{ dd.date_shipment }}</td>
+            <td >{{ dd.dispatch_count }}</td>
+            <td>
+                <button class="btn btn-warning btn-sm" onclick="location.href = '{% url 'dispatch_edit' dd.id %}'">Edit
+                </button>
+            </td>
+            <td>
+                <button class="btn btn-danger btn-sm" onclick="location.href = '{% url 'dispatch_delete' dd.id %}'">
+                    Delete
+                </button>
+            </td>
+            <td></td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    {% else %}
+    <p>У нас нет записей</p>
+    {% endif %}
+</div>
+{% endblock %}
